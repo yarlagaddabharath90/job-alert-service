@@ -1,7 +1,25 @@
+# Build outputs
 target/
-!.mvn/wrapper/maven-wrapper.jar
+build/
+.gradle/
+
+# IDE files
 .idea/
 *.iml
+
+# Output files (job alert emails)
 out/
+
+# Configuration & secrets
 application-local.yml
 .env
+
+# Logs
+app.log
+*.log
+
+# macOS
+.DS_Store
+
+# Maven
+!.mvn/wrapper/maven-wrapper.jar

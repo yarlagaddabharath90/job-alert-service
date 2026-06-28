@@ -1,20 +1,20 @@
 # ▶ Run this in IntelliJ IDEA — easy steps
 
-This is a **Spring Boot (Java 21, Maven)** project — IntelliJ IDEA's home turf.
+This is a **Spring Boot (Java 17, Gradle)** project — IntelliJ IDEA's home turf.
 
 ## Step 0 — One-time prerequisites
-- **JDK 21** — IntelliJ can install it for you (Step 2 below), or get Temurin 21 from https://adoptium.net/
-- **IntelliJ IDEA** — Community Edition is fine for this (Maven + Spring `@Scheduled` all work).
+- **JDK 17 or later** — IntelliJ can install it for you (Step 2 below), or get Temurin 17+ from https://adoptium.net/
+- **IntelliJ IDEA** — Community Edition is fine for this (Gradle + Spring `@Scheduled` all work).
   Ultimate adds nicer Spring tooling but isn't required.
 
 ## Step 1 — Open the project
-**File → Open…** → select the `job-alert-service` folder (the one with `pom.xml`) → **Open**.
-IntelliJ detects Maven and starts downloading dependencies automatically. Wait for the progress
+**File → Open…** → select the `job-alert-service` folder (the one with `build.gradle`) → **Open**.
+IntelliJ detects Gradle and starts downloading dependencies automatically. Wait for the progress
 bar at the bottom to finish (first time needs internet — a few minutes).
 
-## Step 2 — Make sure a JDK 21 is selected
-**File → Project Structure → Project** → set **SDK** to a 21 JDK.
-(If none listed: the SDK dropdown → **Add SDK → Download JDK → version 21 → Temurin**.)
+## Step 2 — Make sure a JDK 17 or later is selected
+**File → Project Structure → Project** → set **SDK** to a 17+ JDK.
+(If none listed: the SDK dropdown → **Add SDK → Download JDK → version 17 or later → Temurin**.)
 
 ## Step 3 — Add your credentials
 Two easy options — pick one:
@@ -59,8 +59,8 @@ Close the app and neither happens — so for true unattended automation, use **G
 (`.github/workflows/daily.yml`) or your OS scheduler. See `PAUSE_AND_STOP.md`.
 
 ## Troubleshooting
-- **Dependencies won't resolve** → check internet, then **Maven tool window → Reload**.
-- **"invalid target release: 21"** → JDK 21 not selected (Step 2).
+- **Dependencies won't resolve** → check internet, then refresh Gradle in IntelliJ.
+- **"invalid target release: 17"** → JDK 17+ not selected (Step 2).
 - **Mail auth error** → use a Gmail *App Password*, not your normal password.
 - **Empty emails** → normal if nothing matched in the last 24h; try DRY RUN and broaden the
   queries/keywords in `application.yml`, and confirm your API keys are set.

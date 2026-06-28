@@ -5,7 +5,7 @@ across several job portals, splits them into **Contract / C2C** and **Full-time 
 groups them by **Remote / Texas / Other**, and emails them. Also exposes a small REST API to
 trigger or preview runs on demand.
 
-- **Spring Boot 4.0.x**, **Java 21**, Maven. (Latest GA is 4.1.0 — bump `<version>` in `pom.xml`.)
+- **Spring Boot 4.0.x**, **Java 17+**, Gradle. (Latest GA is 4.1.0 — bump `version` in `build.gradle`.)
 - `@Scheduled` daily run + REST endpoints (`/api/health`, `/api/run`, `/api/preview`).
 - Sources: **Adzuna**, **JSearch** (RapidAPI, aggregates Google for Jobs incl. LinkedIn/Indeed),
   **Remotive** (remote roles). Add more by implementing the `JobSource` interface.
@@ -35,7 +35,7 @@ export EMAIL_USER=you@gmail.com EMAIL_PASS=app_password EMAIL_TO=you@gmail.com
 export ADZUNA_APP_ID=... ADZUNA_APP_KEY=... RAPIDAPI_KEY=...
 
 # 2. preview without sending
-DRY_RUN=true mvn spring-boot:run        # writes HTML to ./out
+./gradlew bootRun --args='--jobalert.run-on-startup=true --spring.main.web-application-type=none --jobalert.dry-run=true'
 
 # 3. trigger a real run via REST while it's running
 curl -X POST http://localhost:8080/api/run

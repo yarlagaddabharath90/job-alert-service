@@ -4,6 +4,8 @@ import com.jobalert.config.JobAlertProperties;
 import com.jobalert.model.Job;
 import com.jobalert.util.DateUtil;
 import com.jobalert.util.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,6 +18,7 @@ import java.util.List;
 @Component
 public class RemotiveClient implements JobSource {
 
+    private static final Logger log = LoggerFactory.getLogger(RemotiveClient.class);
     private final RestClient http = RestClient.create();
     private final JobAlertProperties props;
 
@@ -30,6 +33,7 @@ public class RemotiveClient implements JobSource {
 
     @Override
     public List<Job> fetch() {
+        log.debug("Remotive: Starting fetch with {} queries", props.queries().size());
         List<Job> out = new ArrayList<>();
         for (String q : props.queries()) {
             URI uri = UriComponentsBuilder
@@ -37,10 +41,16 @@ public class RemotiveClient implements JobSource {
                     .queryParam("search", q)
                     .encode().build().toUri();
 
+            log.debug("Remotive: Fetching for query '{}' from {}", q, uri);
             Object root = http.get().uri(uri).retrieve().body(java.util.Map.class);
-            if (root == null) continue;
+            if (root == null) {
+                log.warn("Remotive: No response for query '{}'", q);
+                continue;
+            }
 
-            for (Object j : Json.arr(root, "jobs")) {
+            List<Object> jobs = Json.arr(root, "jobs");
+            log.debug("Remotive: Got {} results for query '{}'", jobs.size(), q);
+            for (Object j : jobs) {
                 String loc = Json.str(j, "candidate_required_location");
                 out.add(new Job(
                         Json.str(j, "title"),
@@ -53,6 +63,7 @@ public class RemotiveClient implements JobSource {
                         true));
             }
         }
+        log.debug("Remotive: Fetch complete, total jobs: {}", out.size());
         return out;
     }
 }

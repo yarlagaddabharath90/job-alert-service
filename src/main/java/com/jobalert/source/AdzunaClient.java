@@ -4,6 +4,8 @@ import com.jobalert.config.JobAlertProperties;
 import com.jobalert.model.Job;
 import com.jobalert.util.DateUtil;
 import com.jobalert.util.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,6 +18,7 @@ import java.util.List;
 @Component
 public class AdzunaClient implements JobSource {
 
+    private static final Logger log = LoggerFactory.getLogger(AdzunaClient.class);
     private final RestClient http = RestClient.create();
     private final JobAlertProperties props;
 
@@ -32,8 +35,12 @@ public class AdzunaClient implements JobSource {
     public List<Job> fetch() {
         String appId = props.adzuna() == null ? null : props.adzuna().appId();
         String appKey = props.adzuna() == null ? null : props.adzuna().appKey();
-        if (isBlank(appId) || isBlank(appKey)) return List.of();
+        if (isBlank(appId) || isBlank(appKey)) {
+            log.debug("Adzuna: appId or appKey is blank, skipping");
+            return List.of();
+        }
 
+        log.debug("Adzuna: Starting fetch with {} queries", props.queries().size());
         List<Job> out = new ArrayList<>();
         for (String q : props.queries()) {
             URI uri = UriComponentsBuilder
@@ -46,10 +53,16 @@ public class AdzunaClient implements JobSource {
                     .queryParam("content-type", "application/json")
                     .encode().build().toUri();
 
+            log.debug("Adzuna: Fetching for query '{}' from {}", q, uri);
             Object root = http.get().uri(uri).retrieve().body(java.util.Map.class);
-            if (root == null) continue;
+            if (root == null) {
+                log.warn("Adzuna: No response for query '{}'", q);
+                continue;
+            }
 
-            for (Object j : Json.arr(root, "results")) {
+            List<Object> results = Json.arr(root, "results");
+            log.debug("Adzuna: Got {} results for query '{}'", results.size(), q);
+            for (Object j : results) {
                 out.add(new Job(
                         Json.str(j, "title"),
                         Json.str(j, "company", "display_name"),
@@ -61,6 +74,7 @@ public class AdzunaClient implements JobSource {
                         false));
             }
         }
+        log.debug("Adzuna: Fetch complete, total jobs: {}", out.size());
         return out;
     }
 

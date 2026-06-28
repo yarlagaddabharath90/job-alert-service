@@ -1,16 +1,16 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="JobAlertApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <module name="job-alert-service" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobalert.JobAlertApplication" />
     <envs>
-      <env name="EMAIL_USER" value="youraddress@gmail.com" />
-      <env name="EMAIL_PASS" value="your_16_char_app_password" />
-      <env name="EMAIL_TO" value="youraddress@gmail.com" />
-      <env name="ADZUNA_APP_ID" value="" />
-      <env name="ADZUNA_APP_KEY" value="" />
-      <env name="RAPIDAPI_KEY" value="" />
+      <env name="ADZUNA_APP_ID" value="XXXXX" />
+      <env name="ADZUNA_APP_KEY" value="XXXXX" />
       <env name="DRY_RUN" value="false" />
+      <env name="EMAIL_PASS" value="XXXX" />
+      <env name="EMAIL_TO" value="XXXX@gmail.com" />
+      <env name="EMAIL_USER" value="XXXX@gmail.com" />
+      <env name="RAPIDAPI_KEY" value="XXXXX" />
     </envs>
+    <module name="job-alert-service.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobalert.JobAlertApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
