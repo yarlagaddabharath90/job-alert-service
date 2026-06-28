@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JobAlertApplication (DRY RUN - preview only)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="job-alert-service" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.jobalert.JobAlertApplication" />
+    <envs>
+      <env name="DRY_RUN" value="true" />
+      <env name="ADZUNA_APP_ID" value="" />
+      <env name="ADZUNA_APP_KEY" value="" />
+      <env name="RAPIDAPI_KEY" value="" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

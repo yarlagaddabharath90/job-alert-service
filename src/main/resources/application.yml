@@ -1,0 +1,99 @@
+spring:
+  application:
+    name: job-alert-service
+  mail:
+    host: ${SMTP_HOST:smtp.gmail.com}
+    port: ${SMTP_PORT:587}
+    username: ${EMAIL_USER:}
+    password: ${EMAIL_PASS:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+server:
+  port: 8080
+
+jobalert:
+  # 8:00 AM every day (Spring cron: second minute hour day month weekday)
+  cron: "0 0 8 * * *"
+  zone: America/Chicago          # change to your timezone (handles DST automatically)
+  country: us
+  max-age-hours: 24
+  dry-run: ${DRY_RUN:false}      # true = write HTML to ./out instead of emailing
+  email-to: ${EMAIL_TO:}         # comma-separate for multiple recipients
+  split-locations-into-separate-emails: false   # false = 2 emails; true = 6
+
+  adzuna:
+    app-id: ${ADZUNA_APP_ID:}
+    app-key: ${ADZUNA_APP_KEY:}
+  rapidapi-key: ${RAPIDAPI_KEY:}
+
+  queries:
+    - "Java Full Stack Engineer"
+    - "Java Full Stack Developer"
+
+  # Title must contain ALL groups (OR within a group, AND across groups).
+  title-required:
+    - ["java"]
+    - ["full stack", "fullstack", "full-stack"]
+
+  exclude-title-keywords:
+    - "junior"
+    - "jr "
+    - "intern"
+    - "entry level"
+    - "entry-level"
+    - "graduate"
+    - "apprentice"
+    - "associate"
+
+  tx-markers:
+    - "texas"
+    - ", tx"
+    - " tx "
+    - "tx,"
+  cities:
+    - "austin"
+    - "dallas"
+    - "houston"
+    - "san antonio"
+    - "fort worth"
+    - "plano"
+    - "irving"
+
+  contract-positive:
+    - "c2c"
+    - "corp to corp"
+    - "corp-to-corp"
+    - "corp 2 corp"
+    - "contract"
+    - "contractor"
+    - "1099"
+  contract-negative:
+    - "no c2c"
+    - "no corp to corp"
+    - "no corp-to-corp"
+    - "w2 only"
+    - "no third party"
+    - "no third-party"
+
+  sponsorship-positive:
+    - "sponsorship"
+    - "will sponsor"
+    - "visa sponsor"
+    - "h-1b"
+    - "h1b"
+    - "green card"
+    - "ead"
+  sponsorship-negative:
+    - "no sponsorship"
+    - "not able to sponsor"
+    - "cannot sponsor"
+    - "unable to sponsor"
+    - "without sponsorship"
+    - "must be authorized to work"
+    - "no visa"
+
+logging:
+  level:
+    com.jobalert: INFO
