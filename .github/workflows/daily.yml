@@ -14,14 +14,14 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: "21"
-          cache: maven
+          java-version: "17"
+          cache: gradle
       - name: Build
-        run: mvn -B -q package -DskipTests
+        run: ./gradlew bootJar --no-daemon -q
       - name: Run once and exit
         # Runs the pipeline immediately, then shuts down (no server kept alive).
         run: |
-          java -jar target/job-alert-service-1.0.0.jar \
+          java -jar build/libs/job-alert-service-1.0.0.jar \
             --spring.main.web-application-type=none \
             --jobalert.run-on-startup=true
         env:
