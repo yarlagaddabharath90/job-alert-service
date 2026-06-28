@@ -84,4 +84,5 @@ src/main/java/com/jobalert/
 
 <img width="2054" height="439" alt="image" src="https://github.com/user-attachments/assets/35b27205-3ce9-4d1a-9816-f30994804a27" />
 <img width="1386" height="826" alt="image" src="https://github.com/user-attachments/assets/3042923c-671d-451b-9513-619f804089a4" />
+<img width="2060" height="1121" alt="image" src="https://github.com/user-attachments/assets/0d80e532-474a-4f74-b2c7-a25872be1649" />
 
