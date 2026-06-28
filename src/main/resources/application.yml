@@ -18,7 +18,7 @@ jobalert:
   cron: "0 0 8 * * *"
   zone: America/Chicago          # change to your timezone (handles DST automatically)
   country: us
-  max-age-hours: 78
+  max-age-hours: 24
   dry-run: ${DRY_RUN:false}      # true = write HTML to ./out instead of emailing
   email-to: ${EMAIL_TO:}         # comma-separate for multiple recipients
   split-locations-into-separate-emails: false   # false = 2 emails; true = 6
@@ -36,6 +36,7 @@ jobalert:
   title-required:
     - ["java"]
     - ["full stack", "fullstack", "full-stack"]
+    - ["engineer", "developer", "programmer"]
 
   exclude-title-keywords:
     - "junior"
@@ -76,6 +77,7 @@ jobalert:
     - "w2 only"
     - "no third party"
     - "no third-party"
+    - "Only w2 - No c2c"
 
   sponsorship-positive:
     - "sponsorship"
@@ -97,10 +99,10 @@ jobalert:
 logging:
   level:
     root: INFO
-    com.jobalert: DEBUG
+    com.jobalert: INFO
     org.springframework.web: INFO
     org.springframework.boot: INFO
   pattern:
     console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
-  file:
-    name: app.log
+#  file:
+#    name: app.log

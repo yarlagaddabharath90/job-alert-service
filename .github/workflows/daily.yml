@@ -25,8 +25,8 @@ jobs:
             --spring.main.web-application-type=none \
             --jobalert.run-on-startup=true
         env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: 587
           EMAIL_USER: yarlagaddabharath90@gmail.com
           EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
           EMAIL_TO: mtadepalli98@gmail.com
