@@ -14,8 +14,8 @@ server:
   port: 8081
 
 jobalert:
-  # 8:00 AM every day (Spring cron: second minute hour day month weekday)
-  cron: "0 0 8 * * *"
+  # 9:00 AM every day (Spring cron: second minute hour day month weekday)
+  cron: "0 0 9 * * *"
   zone: America/Chicago          # change to your timezone (handles DST automatically)
   country: us
   max-age-hours: 24
