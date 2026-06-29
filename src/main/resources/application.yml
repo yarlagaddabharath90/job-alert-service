@@ -31,6 +31,12 @@ jobalert:
   queries:
     - "Java Full Stack Engineer"
     - "Java Full Stack Developer"
+    - "software engineer"
+    - "software developer"
+    - "Application engineer"
+    - "Application developer"
+    - "Java developer"
+    - "Java engineer"
 
   # Title must contain ALL groups (OR within a group, AND across groups).
   title-required:
